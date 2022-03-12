@@ -6,22 +6,46 @@ const equalsButton = document.querySelector('#equals');
 const numberBtn = document.querySelectorAll('.number');
 const operatorBtn =document.querySelectorAll('.operator');
 
-let previousOperand = ''
-let currentOperand = ''
+let previousOperandDiv = '';
+let currentOperandDiv = '';
+let operation = '';
 
+// current display Element
 function updateDisplay(){
-currentOperandElement.innerHTML =currentOperand ;
+currentOperandElement.innerHTML = currentOperandDiv;
+previousOperandElement.innerHTML =`${previousOperandDiv}${operation}`;
 }
 
+// function for append number 
 function appendNumber(number){
-    currentOperand += number;
-    console.log(currentOperand)
+    currentOperandDiv += number;
+   
 }
 
+// Select Operator 
+function selectOperator(operator){
+    operation = operator;
+    previousOperandDiv = currentOperandDiv;
+    currentOperandDiv =''
+}
+
+
+
+//!when all number button click 
 numberBtn.forEach(btn=>{
     btn.addEventListener('click',function(){
-        if(btn.textContent === '.' && currentOperand.includes('.')) return;
+        if(btn.textContent === '.' && currentOperandDiv.includes('.')) return;
         appendNumber(btn.textContent)
         updateDisplay()
+    })
+})
+
+// !when all operator button click 
+operatorBtn.forEach(btn=>{
+    btn.addEventListener('click',function(){
+        if(btn.textContent === '.' && currentOperandDiv.includes('.')) return;
+        selectOperator(btn.textContent)
+        updateDisplay()
+        console.log(btn.textContent)
     })
 })
