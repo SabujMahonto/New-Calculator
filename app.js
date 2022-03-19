@@ -24,11 +24,39 @@ function appendNumber(number){
 
 // Select Operator 
 function selectOperator(operator){
+    if(!previousOperandDiv){
+     previousOperandDiv = calculation();
+    }else{
+        previousOperandDiv = currentOperandDiv;
+    }
     operation = operator;
     previousOperandDiv = currentOperandDiv;
     currentOperandDiv =''
 }
 
+function calculation(){
+    switch (operation) {
+        case '÷':
+            return previousOperandDiv / currentOperandDiv;
+
+            break;
+        case '*':
+            return previousOperandDiv * currentOperandDiv;
+
+            break;
+        case '+':
+            return previousOperandDiv + currentOperandDiv;
+
+            break;
+        case '-':
+            return previousOperandDiv - currentOperandDiv;
+
+            break;
+    
+        // default:
+        //     break;
+    }
+}
 
 
 //!when all number button click 
@@ -43,7 +71,7 @@ numberBtn.forEach(btn=>{
 // !when all operator button click 
 operatorBtn.forEach(btn=>{
     btn.addEventListener('click',function(){
-        if(btn.textContent === '.' && currentOperandDiv.includes('.')) return;
+       if(!currentOperandDiv) return;
         selectOperator(btn.textContent)
         updateDisplay()
         console.log(btn.textContent)
